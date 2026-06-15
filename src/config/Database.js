@@ -52,7 +52,7 @@ export async function initializeDatabase() {
 
     await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\`;`);
     await tempConnection.query(`USE \`${dbName}\`;`);
-    
+
     await tempConnection.query(`DROP TABLE IF EXISTS itens_pedidos;`);
     await tempConnection.query(`DROP TABLE IF EXISTS pedidos;`);
     await tempConnection.query(`DROP TABLE IF EXISTS produtos;`);
@@ -95,21 +95,21 @@ export async function initializeDatabase() {
 );
   `);
     
-    await tempConnection.query(`
-      CREATE TABLE itens_pedidos (
-  idItensPedidos int NOT NULL AUTO_INCREMENT,
-  idPedido int NOT NULL,
-  idProduto int NOT NULL,
-  quantidade int NOT NULL,
-  valorItem decimal(10, 2) NOT NULL,
-  DataCad timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (idItensPedidos, idPedido, idProduto),
-  KEY fk_pedido_itens-pedido_idx (idPedido),
-  KEY fk_produto_itens-pedido_idx (idProduto),
-  CONSTRAINT fk_pedido_itens-pedido FOREIGN KEY (idPedido) REFERENCES pedidos (idPedido),
-  CONSTRAINT fk_produto_itens-pedido FOREIGN KEY (idProduto) REFERENCES produtos (idProduto)
-);
-  `);
+await tempConnection.query(`
+  CREATE TABLE itens_pedidos (
+    idItensPedidos int NOT NULL AUTO_INCREMENT,
+    idPedido int NOT NULL,
+    idProduto int NOT NULL,
+    quantidade int NOT NULL,
+    valorItem decimal(10, 2) NOT NULL,
+    DataCad timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (idItensPedidos, idPedido, idProduto),
+    KEY fk_pedido_itens_pedido_idx (idPedido),
+    KEY fk_produto_itens_pedido_idx (idProduto),
+    CONSTRAINT fk_pedido_itens_pedido FOREIGN KEY (idPedido) REFERENCES pedidos (idPedido),
+    CONSTRAINT fk_produto_itens_pedido FOREIGN KEY (idProduto) REFERENCES produtos (idProduto)
+  )
+`);
     await tempConnection.end();
     console.log("Banco de dados e tabelas verificados/criados com sucesso.");
   } catch (error) {
