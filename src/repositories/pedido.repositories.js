@@ -1,4 +1,5 @@
 import { connection } from "../config/Database.js";
+import { ItensPedido } from "../models/Item_Pedido.js";
 
 const pedidoRepositories = {
   // Repositório de pedidos: responsável por todas as consultas e comandos SQL
@@ -97,7 +98,7 @@ const pedidoRepositories = {
   // --- Itens Pedidos --- //
 
   listarItensPorPedido: async pedidoId => {
-    const sql = "SELECT * FROM itens_pedidos WHERE PedidoId = ?;";
+    const sql = "SELECT quantidade, valorItem, idItensPedidos, idPedido, idProduto FROM itens_pedidos WHERE idPedido = ?;";
     const values = [pedidoId];
     const [rows] = await connection.execute(sql, values);
     return rows;
@@ -120,7 +121,6 @@ const pedidoRepositories = {
       await conn.beginTransaction();
 
       // --- UPDATE ITEM --- //
-      // Atualiza os dados de um item de pedido específico.
       const sqlUpdate =
         "UPDATE itens_pedidos SET idProduto = ?, quantidade = ?, valorItem = ? WHERE idItensPedidos = ?;";
       const valuesUpdate = [
@@ -139,20 +139,8 @@ const pedidoRepositories = {
       }
       const pedidoId = itemRows[0].idPedido;
 
-      // --- RECALCULAR SUBTOTAL --- //
-      // Após atualizar um item, recalcular o subtotal total do pedido.
-      const sqlSubtotal =
-        "SELECT COALESCE(SUM(quantidade * valorItem), 0) AS novoSubtotal FROM itens_pedidos WHERE idPedido = ?;";
-      const [subtotalRows] = await conn.execute(sqlSubtotal, [pedidoId]);
-      const novoSubtotal = subtotalRows[0].novoSubtotal;
-
-      // --- UPDATE PEDIDO SUBTOTAL --- //
-      const sqlUpdatePedido =
-        "UPDATE pedidos SET subTotal = ? WHERE idPedido = ?;";
-      await conn.execute(sqlUpdatePedido, [novoSubtotal, pedidoId]);
-
       await conn.commit();
-      return { pedidoId, novoSubtotal };
+      return { pedidoId };
     } catch (error) {
       await conn.rollback();
       throw new Error(error);
@@ -167,39 +155,34 @@ const pedidoRepositories = {
       await conn.beginTransaction();
 
       // --- BUSCAR PEDIDO DO ITEM --- //
-      const sqlGetItem = "SELECT PedidoId FROM itens_pedidos WHERE id = ?;";
+      const sqlGetItem = "SELECT idPedido FROM itens_pedidos WHERE idItensPedidos = ?;";
       const [itemRows] = await conn.execute(sqlGetItem, [itemId]);
 
       if (!itemRows.length) {
         throw new Error("Item não encontrado");
       }
 
-      const pedidoId = itemRows[0].PedidoId;
+      const pedidoId = itemRows[0].idPedido;
 
       // --- DELETE ITEM --- //
-      // Remove o item inválido e recalcula o subtotal do pedido.
-      const sqlDeleteItem = "DELETE FROM itens_pedidos WHERE id = ?;";
+      const sqlDeleteItem = "DELETE FROM itens_pedidos WHERE idItensPedidos = ?;";
       await conn.execute(sqlDeleteItem, [itemId]);
 
-      // --- RECALCULAR SUBTOTAL --- //
-      const sqlSubtotal =
-        "SELECT COALESCE(SUM(Quantidade * ValorItem), 0) AS novoSubtotal FROM itens_pedidos WHERE PedidoId = ?;";
-      const [subtotalRows] = await conn.execute(sqlSubtotal, [pedidoId]);
-      const novoSubtotal = subtotalRows[0].novoSubtotal;
-
-      // --- UPDATE PEDIDO SUBTOTAL --- //
-      const sqlUpdatePedido =
-        "UPDATE pedidos SET Subtotal = ? WHERE idPedido = ?;";
-      await conn.execute(sqlUpdatePedido, [novoSubtotal, pedidoId]);
-
       await conn.commit();
-      return { pedidoId, novoSubtotal };
+      return { pedidoId };
     } catch (error) {
       await conn.rollback();
       throw new Error(error);
     } finally {
       conn.release();
     }
+  },
+
+  atualizarSubtotalPedido: async (pedidoId, novoSubtotal) => {
+    const sqlUpdatePedido = "UPDATE pedidos SET subTotal = ? WHERE idPedido = ?;";
+    const values = [novoSubtotal, pedidoId];
+    const [rows] = await connection.execute(sqlUpdatePedido, values);
+    return rows;
   },
 };
 

@@ -192,17 +192,23 @@ const pedidoController = {
   },
   alterarItem: async (req, res) => {
     try {
-      const itemId = Number(req.params.id);
+      const itemId = Number(req.params.itemId ?? req.params.id);
       const { idProduto, quantidade, valorItem } = req.body;
 
       // Cria uma instância de item de pedido atualizada antes de salvar
-      const item = ItensPedido.editar(
-        { idProduto, quantidade, valorItem },
-        itemId,
-      );
-      const result = await pedidoRepositories.alterarItem(itemId, item);
+      const item = ItensPedido.editar({ idProduto, quantidade, valorItem }, itemId);
 
-      res.status(200).json({ result });
+      // Atualiza o item e obtém o pedidoId afetado
+      const { pedidoId } = await pedidoRepositories.alterarItem(itemId, item);
+
+      // Busca itens do pedido, calcula subtotal via model e valida antes de atualizar
+      const itensRows = await pedidoRepositories.listarItensPorPedido(pedidoId);
+      const itensParaCalculo = itensRows.map(r => ({ quantidade: r.quantidade, valorItem: Number(r.valorItem) }));
+      const novoSubtotal = ItensPedido.calcularSubTotal(itensParaCalculo);
+
+      await pedidoRepositories.atualizarSubtotalPedido(pedidoId, novoSubtotal);
+
+      return res.status(200).json({ pedidoId, novoSubtotal });
     } catch (error) {
       console.log(error);
       res.status(500).json({
