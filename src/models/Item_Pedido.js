@@ -68,9 +68,8 @@ export class ItensPedido {
       throw new Error("Verifique o ID informado");
     }
   }
-
   #validarPedidoId(value) {
-    if (!value || value <= 0) {
+    if (value !== null && value !== undefined && value <= 0) {
       throw new Error("Verifique o ID do pedido informado");
     }
   }
@@ -114,7 +113,7 @@ export class ItensPedido {
 
   static editar(dados, id) {
     return new ItensPedido(
-      dados.idPedido,
+      null,
       dados.idProduto,
       dados.quantidade,
       dados.valorItem,

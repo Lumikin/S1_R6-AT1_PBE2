@@ -177,6 +177,7 @@ const produtoController = {
       console.log(error);
       res.status(500).json({
         message: "Ocorreu um erro no servidor",
+        error: error.message,
       });
     }
   },

@@ -125,7 +125,7 @@ const pedidoRepositories = {
         "UPDATE itens_pedidos SET idProduto = ?, quantidade = ?, valorItem = ? WHERE idItensPedidos = ?;";
       const valuesUpdate = [
         item.idProduto,
-        item.estoque,
+        item.quantidade,
         item.valorItem,
         itemId,
       ];

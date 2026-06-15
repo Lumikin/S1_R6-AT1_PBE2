@@ -193,11 +193,11 @@ const pedidoController = {
   alterarItem: async (req, res) => {
     try {
       const itemId = Number(req.params.id);
-      const { idProduto, estoque, valorItem } = req.body;
+      const { idProduto, quantidade, valorItem } = req.body;
 
       // Cria uma instância de item de pedido atualizada antes de salvar
       const item = ItensPedido.editar(
-        { idProduto, estoque, valorItem },
+        { idProduto, quantidade, valorItem },
         itemId,
       );
       const result = await pedidoRepositories.alterarItem(itemId, item);
@@ -207,6 +207,7 @@ const pedidoController = {
       console.log(error);
       res.status(500).json({
         message: "Ocorreu um erro no servidor",
+        error: error.message,
       });
     }
   },
