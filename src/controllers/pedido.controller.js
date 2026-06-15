@@ -50,7 +50,7 @@ const pedidoController = {
       const { itens } = req.body;
 
       // Converte cada item do payload em uma instância de model de item de pedido
-      const itensPedido = itens.map((item) => {
+      const itensPedido = itens.map(item => {
         console.log("Itens:", item);
         return ItensPedido.criar({
           idProduto: item.idProduto,
@@ -149,7 +149,7 @@ const pedidoController = {
 
   // --- Itens Pedido --- //
   //
-  
+
   listarItens: async (req, res) => {
     try {
       const id = Number(req.params.id);

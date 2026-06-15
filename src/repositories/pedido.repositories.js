@@ -32,7 +32,7 @@ const pedidoRepositories = {
         const valuesItemPed = [
           rowsPedido.insertId,
           item.idProduto,
-          item.estoque,
+          item.quantidade,
           item.valorItem,
         ];
         await conn.execute(sqlItemPed, valuesItemPed);

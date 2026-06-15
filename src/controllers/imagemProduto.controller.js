@@ -16,7 +16,7 @@ const imagemProduto = {
         nome,
       ); // Monta o caminho absoluto da imagem combinando o diretório atual
 
-      return res.sendFile(caminhoAbsoluto, (error) => {
+      return res.sendFile(caminhoAbsoluto, error => {
         if (error) {
           res.status(404).json({
             message: "Imagem nao encontrada",

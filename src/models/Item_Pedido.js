@@ -107,7 +107,6 @@ export class ItensPedido {
       dados.pedidoId,
       dados.idProduto,
       dados.quantidade,
-      dados.quantidade,
       dados.valorItem,
       null,
     );
