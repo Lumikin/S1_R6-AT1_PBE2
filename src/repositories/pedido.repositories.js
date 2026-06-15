@@ -113,7 +113,7 @@ const pedidoRepositories = {
     const [rows] = await connection.execute(sql, values);
     return rows;
   },
-  alterarItem: async (itemId, pedidoId, item) => {
+  alterarItem: async (itemId, item) => {
     const conn = await connection.getConnection();
 
     try {
@@ -122,26 +122,33 @@ const pedidoRepositories = {
       // --- UPDATE ITEM --- //
       // Atualiza os dados de um item de pedido específico.
       const sqlUpdate =
-        "UPDATE itens_pedidos SET ProdutoId = ?, Quantidade = ?, ValorItem = ? WHERE id = ?;";
+        "UPDATE itens_pedidos SET idProduto = ?, quantidade = ?, valorItem = ? WHERE idItensPedidos = ?;";
       const valuesUpdate = [
         item.idProduto,
         item.estoque,
         item.valorItem,
         itemId,
-        pedidoId,
       ];
       await conn.execute(sqlUpdate, valuesUpdate);
+
+      // --- OBTER pedidoId DO ITEM ATUALIZADO --- //
+      const sqlGetPedidoId = "SELECT idPedido FROM itens_pedidos WHERE idItensPedidos = ?;";
+      const [itemRows] = await conn.execute(sqlGetPedidoId, [itemId]);
+      if (!itemRows.length) {
+        throw new Error("Item não encontrado após atualização");
+      }
+      const pedidoId = itemRows[0].idPedido;
 
       // --- RECALCULAR SUBTOTAL --- //
       // Após atualizar um item, recalcular o subtotal total do pedido.
       const sqlSubtotal =
-        "SELECT COALESCE(SUM(Quantidade * ValorItem), 0) AS novoSubtotal FROM itens_pedidos WHERE PedidoId = ?;";
+        "SELECT COALESCE(SUM(quantidade * valorItem), 0) AS novoSubtotal FROM itens_pedidos WHERE idPedido = ?;";
       const [subtotalRows] = await conn.execute(sqlSubtotal, [pedidoId]);
       const novoSubtotal = subtotalRows[0].novoSubtotal;
 
       // --- UPDATE PEDIDO SUBTOTAL --- //
       const sqlUpdatePedido =
-        "UPDATE pedidos SET Subtotal = ? WHERE idPedido = ?;";
+        "UPDATE pedidos SET subTotal = ? WHERE idPedido = ?;";
       await conn.execute(sqlUpdatePedido, [novoSubtotal, pedidoId]);
 
       await conn.commit();

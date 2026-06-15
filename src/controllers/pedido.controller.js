@@ -150,6 +150,7 @@ const pedidoController = {
 
   // --- Itens Pedido --- //
   //
+  
   listarItens: async (req, res) => {
     try {
       const id = Number(req.params.id);
@@ -200,7 +201,7 @@ const pedidoController = {
         { idProduto, estoque, valorItem },
         itemId,
       );
-      const result = await pedidoRepositories.alterarItem(item);
+      const result = await pedidoRepositories.alterarItem(itemId, item);
 
       res.status(200).json({ result });
     } catch (error) {

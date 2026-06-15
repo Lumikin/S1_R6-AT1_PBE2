@@ -8,7 +8,7 @@ pedidoRoutes.post("/", pedidoController.criarPedido);
 
 pedidoRoutes.get("/itens/", pedidoController.listarItens);
 pedidoRoutes.get("/itens/:id", pedidoController.listarIDItem);
-pedidoRoutes.put("/itens/:id", pedidoController.alterarItem);
+pedidoRoutes.put("/itens/:itemId", pedidoController.alterarItem);
 
 pedidoRoutes.get("/:id", pedidoController.listarIDPedidos);
 pedidoRoutes.put("/:id", pedidoController.atualizarPedido);
