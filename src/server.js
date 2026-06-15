@@ -6,6 +6,7 @@ import cors from "cors";
 import routes from "./routes/router.js";
 const app = express();
 const port = process.env.SERVER_PORT || 8080;
+import { initializeDatabase } from "./config/Database.js";
 
 app.use(express.json());
 app.use(cors());
