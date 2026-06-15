@@ -54,6 +54,7 @@ export async function initializeDatabase() {
     await tempConnection.query(`USE \`${dbName}\`;`);
 
     await tempConnection.query(`
+      DROP TABLE IF EXISTS categorias;
             CREATE TABLE categorias (
             idCategoria int NOT NULL AUTO_INCREMENT,
             nome varchar(100) NOT NULL,
@@ -64,6 +65,7 @@ export async function initializeDatabase() {
         `);
 
     await tempConnection.query(`
+      DROP TABLE IF EXISTS produtos;
            CREATE TABLE produtos (
           idProduto int NOT NULL AUTO_INCREMENT,
           idCategoria int NOT NULL,
@@ -79,6 +81,7 @@ export async function initializeDatabase() {
             );
         `);
     await tempConnection.query(`
+      DROP TABLE IF EXISTS pedidos;
   CREATE TABLE pedidos (
   idPedido int NOT NULL AUTO_INCREMENT,
   subTotal decimal(10, 2) NOT NULL,
@@ -89,7 +92,8 @@ export async function initializeDatabase() {
   `);
 
     await tempConnection.query(`
-  CREATE TABLE itens_pedidos (
+DROP TABLE IF EXISTS itens_pedidos;
+      CREATE TABLE itens_pedidos (
   idItensPedidos int NOT NULL AUTO_INCREMENT,
   idPedido int NOT NULL,
   idProduto int NOT NULL,
