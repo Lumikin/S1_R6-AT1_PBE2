@@ -1,0 +1,575 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: S1_R6 - AT1_PBE 2
+meta:
+  id: wrk_314d505303b5425baba157452fb3160f
+  created: 1781540791185
+  modified: 1781540791185
+  description: ""
+collection:
+  - name: Categorias
+    meta:
+      id: fld_add71436c65944fb8a07c1df1e782f20
+      created: 1781540974736
+      modified: 1781540980378
+      sortKey: -1781540976960
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/categorias"
+        name: listar
+        meta:
+          id: req_93beb8097ec14df6a6a6e279601e15ff
+          created: 1781540976860
+          modified: 1781541096012
+          isPrivate: false
+          description: ""
+          sortKey: -1781540981785
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/categorias/1"
+        name: listar ID
+        meta:
+          id: req_cde2b183f0664423ae02ffa2760e96c2
+          created: 1781541118661
+          modified: 1781541129834
+          isPrivate: false
+          description: ""
+          sortKey: -1781231887068
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/categorias/"
+        name: Criar
+        meta:
+          id: req_86fcd64cf2694b069ef44b18eddc027e
+          created: 1781541132451
+          modified: 1781541262714
+          isPrivate: false
+          description: ""
+          sortKey: -1781077339709.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"{% faker 'randomWord' %}",
+            	"descricao":"{% faker 'randomWords' %}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/categorias/2"
+        name: Alterar
+        meta:
+          id: req_2d137566d34a4a34befee1dd17b929c0
+          created: 1781541283338
+          modified: 1781541363282
+          isPrivate: false
+          description: ""
+          sortKey: -1781000066030.25
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"{% faker 'randomWord' %}",
+            	"descricao":"{% faker 'randomWords' %}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/categorias/1"
+        name: Deletar
+        meta:
+          id: req_8584a169a7a94b60b43b681f32f52656
+          created: 1781541287933
+          modified: 1781541292584
+          isPrivate: false
+          description: ""
+          sortKey: -1780961429190.625
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome":"{% faker 'randomWord' %}",
+            	"descricao":"{% faker 'randomWords' %}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Produtos
+    meta:
+      id: fld_135e07544a1d4212ab55d389e5ca898b
+      created: 1781541389006
+      modified: 1781541389006
+      sortKey: -1781016114081
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/produtos/2"
+        name: Deletar
+        meta:
+          id: req_252e9775716e4d62bcea6a95b5c4d519
+          created: 1781541389006
+          modified: 1781541986321
+          isPrivate: false
+          description: ""
+          sortKey: -1780961429190.625
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/produtos/"
+        name: Criar
+        meta:
+          id: req_5c40f7a8361b42579c7d3f27ebe424ff
+          created: 1781541389006
+          modified: 1781547443600
+          isPrivate: false
+          description: ""
+          sortKey: -1781077339709.5
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: idCategoria
+              value: "2"
+              description: ""
+              disabled: false
+            - name: nome
+              value: "{% faker 'randomProduct' %}"
+              description: ""
+              disabled: false
+              multiline: false
+              type: text
+            - name: descricao
+              value: "{% faker 'randomWords' %}"
+              description: ""
+              disabled: false
+            - name: preco
+              value: "{% faker 'randomPrice' %}"
+              description: ""
+              disabled: false
+            - name: estoque
+              value: "44"
+              description: ""
+              disabled: false
+              multiline: false
+              fileName: C:\Users\49211409870\Downloads\Diagrama sem nome.drawio.png
+              type: text
+            - name: image
+              value: "{% faker 'randomFoodImage' %}"
+              description: ""
+              disabled: false
+              fileName: C:\Users\49211409870\Downloads\promeia (zenless zone zero.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/produtos"
+        name: listar
+        meta:
+          id: req_9ad17f2ea40e48f29840b9db0af0a0c7
+          created: 1781541389006
+          modified: 1781541401511
+          isPrivate: false
+          description: ""
+          sortKey: -1781540981785
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/produtos/1"
+        name: listar ID
+        meta:
+          id: req_fe4c965eb5fb4cdd8171c1e7aee8b511
+          created: 1781541389006
+          modified: 1781541404295
+          isPrivate: false
+          description: ""
+          sortKey: -1781231887068
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/produtos/2"
+        name: Alterar
+        meta:
+          id: req_f86a6d3f7c73431cb46a2052fe8a0271
+          created: 1781541934031
+          modified: 1781541955026
+          isPrivate: false
+          description: ""
+          sortKey: -1781038702869.875
+        method: PUT
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: idCategoria
+              value: "3"
+              description: ""
+              disabled: false
+            - name: nome
+              value: "{% faker 'randomProduct' %}"
+              description: ""
+              disabled: false
+              multiline: false
+              type: text
+            - name: descricao
+              value: "{% faker 'randomWords' %}"
+              description: ""
+              disabled: false
+            - name: preco
+              value: "{% faker 'randomPrice' %}"
+              description: ""
+              disabled: false
+            - name: estoque
+              value: "44"
+              description: ""
+              disabled: false
+              multiline: false
+              fileName: C:\Users\49211409870\Downloads\Diagrama sem nome.drawio.png
+              type: text
+            - name: image
+              value: "{% faker 'randomFoodImage' %}"
+              description: ""
+              disabled: false
+              fileName: C:\Users\49211409870\Downloads\promeia (zenless zone zero.jpg
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Pedidos
+    meta:
+      id: fld_351c9ff4556b423d9ba03666271612c8
+      created: 1781541999954
+      modified: 1781541999954
+      sortKey: -1780753682641.5
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/pedidos/1"
+        name: listar ID
+        meta:
+          id: req_6e0d025843d643a482095418ff522806
+          created: 1781541999954
+          modified: 1781542017909
+          isPrivate: false
+          description: ""
+          sortKey: -1781231887068
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/pedidos/"
+        name: Criar
+        meta:
+          id: req_7d28c4e323bb46e38524894aeeb648ff
+          created: 1781541999954
+          modified: 1781544999174
+          isPrivate: false
+          description: ""
+          sortKey: -1781077339709.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"itens": [
+            		{
+            			"idProduto": 1,
+            			"quantidade": 13123,
+            			"valorItem": {% faker 'randomPrice' %}
+            		},
+            		{
+            			"idProduto": 2,
+            			"quantidade": 13123,
+            			"valorItem": {% faker 'randomPrice' %}
+            		}
+            	]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/pedidos/1"
+        name: Deletar
+        meta:
+          id: req_9aacc73e5033491789f09546e2066311
+          created: 1781541999954
+          modified: 1781542811474
+          isPrivate: false
+          description: ""
+          sortKey: -1780961429190.625
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/pedidos"
+        name: listar
+        meta:
+          id: req_d4ddc4d56b854508bf9c51a76626f517
+          created: 1781541999954
+          modified: 1781542008425
+          isPrivate: false
+          description: ""
+          sortKey: -1781540981785
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/pedidos/1"
+        name: Alterar
+        meta:
+          id: req_dc608a3072754251a4d06bbe50e4507a
+          created: 1781541999954
+          modified: 1781542799897
+          isPrivate: false
+          description: ""
+          sortKey: -1781038702869.875
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            "status": "Finalizado"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Itens Pedidos
+    meta:
+      id: fld_dc696ec53055477cbb7c4f7003687f93
+      created: 1781542854245
+      modified: 1781542854245
+      sortKey: -1780622466921.75
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/pedidos/itens/5"
+        name: listar ID
+        meta:
+          id: req_457aadc2882f4fdf8173a62e8481ca3e
+          created: 1781542854245
+          modified: 1781544038827
+          isPrivate: false
+          description: ""
+          sortKey: -1781231887068
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/pedidos/itens"
+        name: listar
+        meta:
+          id: req_6908516e91ca4540a0234c450549cc62
+          created: 1781542854245
+          modified: 1781542873032
+          isPrivate: false
+          description: ""
+          sortKey: -1781540981785
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_56bd4409e583f33f13d93b2b658110415399db32
+    created: 1781540791247
+    modified: 1781540791247
+environments:
+  name: Base Environment
+  meta:
+    id: env_56bd4409e583f33f13d93b2b658110415399db32
+    created: 1781540791200
+    modified: 1781541082022
+    isPrivate: false
+  data:
+    server: https://market-7tm6.onrender.com
+    port: "443"
+    local: http://localhost
