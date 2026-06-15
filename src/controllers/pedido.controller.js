@@ -54,7 +54,8 @@ const pedidoController = {
         console.log("Itens:", item);
         return ItensPedido.criar({
           idProduto: item.idProduto,
-          estoque: item.estoque ?? item.quantidade,
+          estoque: item.estoque,
+          quantidade: item.quantidade,
           valorItem: item.valorItem,
         });
       });

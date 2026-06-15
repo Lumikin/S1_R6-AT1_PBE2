@@ -4,13 +4,13 @@ export class ItensPedido {
   #id;
   #pedidoId;
   #idProduto;
-  #estoque;
+  #quantidade;
   #valorItem;
 
-  constructor(pPedidoId, pIdProduto, pEstoque, pValorItem, pID) {
+  constructor(pPedidoId, pIdProduto, pquantidade, pValorItem, pID) {
     this.#pedidoId = pPedidoId;
     this.#idProduto = pIdProduto;
-    this.#estoque = pEstoque;
+    this.#quantidade = pquantidade;
     this.#valorItem = pValorItem;
     this.#id = pID;
   }
@@ -28,8 +28,8 @@ export class ItensPedido {
     return this.#idProduto;
   }
 
-  get estoque() {
-    return this.#estoque;
+  get quantidade() {
+    return this.#quantidade;
   }
 
   get valorItem() {
@@ -52,9 +52,9 @@ export class ItensPedido {
     this.#idProduto = value;
   }
 
-  set estoque(value) {
-    this.#validarEstoque(value);
-    this.#estoque = value;
+  set quantidade(value) {
+    this.#validarquantidade(value);
+    this.#quantidade = value;
   }
 
   set valorItem(value) {
@@ -81,9 +81,9 @@ export class ItensPedido {
     }
   }
 
-  #validarEstoque(value) {
+  #validarquantidade(value) {
     if (!value || value <= 0) {
-      throw new Error("Informe um estoque válido");
+      throw new Error("Informe um quantidade válido");
     }
   }
 
@@ -96,7 +96,7 @@ export class ItensPedido {
   static calcularSubTotal(itens) {
     // Soma o valor de cada item levando em conta a quantidade.
     return itens.reduce(
-      (total, item) => total + item.valorItem * item.estoque,
+      (total, item) => total + item.valorItem * item.quantidade,
       0,
     );
   }
@@ -106,7 +106,8 @@ export class ItensPedido {
     return new ItensPedido(
       dados.pedidoId,
       dados.idProduto,
-      dados.estoque,
+      dados.quantidade,
+      dados.quantidade,
       dados.valorItem,
       null,
     );
@@ -116,7 +117,7 @@ export class ItensPedido {
     return new ItensPedido(
       dados.idPedido,
       dados.idProduto,
-      dados.estoque,
+      dados.quantidade,
       dados.valorItem,
       id,
     );

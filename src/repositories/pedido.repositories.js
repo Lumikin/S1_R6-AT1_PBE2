@@ -19,8 +19,11 @@ const pedidoRepositories = {
       // Insere cada item do pedido em transação, garantindo consistência.
       for (const item of itemPed) {
         // Verifica se o produto existe para evitar violação de FK
-        const sqlCheckProduto = "SELECT idProduto FROM produtos WHERE idProduto = ?;";
-        const [produtoRows] = await conn.execute(sqlCheckProduto, [item.idProduto]);
+        const sqlCheckProduto =
+          "SELECT idProduto FROM produtos WHERE idProduto = ?;";
+        const [produtoRows] = await conn.execute(sqlCheckProduto, [
+          item.idProduto,
+        ]);
         if (!produtoRows.length) {
           throw new Error(`Produto não encontrado: ${item.idProduto}`);
         }
@@ -29,7 +32,7 @@ const pedidoRepositories = {
         const valuesItemPed = [
           rowsPedido.insertId,
           item.idProduto,
-          item.estoque,
+          item.quantidade,
           item.valorItem,
         ];
         await conn.execute(sqlItemPed, valuesItemPed);
@@ -49,25 +52,25 @@ const pedidoRepositories = {
     const [rows] = await connection.execute(sql);
     return rows;
   },
-  listarIDPedido: async (id) => {
+  listarIDPedido: async id => {
     const sql = "SELECT * FROM pedidos WHERE idPedido = ?;";
     const values = [id];
     const [rows] = await connection.execute(sql, values);
     return rows;
   },
-  alterarPedido: async (pedido) => {
+  alterarPedido: async pedido => {
     const sql = "UPDATE pedidos SET status = ? WHERE idPedido = ?;";
     const values = [pedido.status, pedido.id];
     const [rows] = await connection.execute(sql, values);
     return rows;
   },
-  alterarStatusPedido: async (pedido) => {
+  alterarStatusPedido: async pedido => {
     const sql = "UPDATE pedidos SET Status = ? WHERE idPedido = ?;";
     const values = [pedido.status, pedido.id];
     const [rows] = await connection.execute(sql, values);
     return rows;
   },
-  deletarPedido: async (id) => {
+  deletarPedido: async id => {
     const conn = await connection.getConnection();
 
     try {
@@ -93,7 +96,7 @@ const pedidoRepositories = {
 
   // --- Itens Pedidos --- //
 
-  listarItensPorPedido: async (pedidoId) => {
+  listarItensPorPedido: async pedidoId => {
     const sql = "SELECT * FROM itens_pedidos WHERE PedidoId = ?;";
     const values = [pedidoId];
     const [rows] = await connection.execute(sql, values);
@@ -104,7 +107,7 @@ const pedidoRepositories = {
     const [rows] = await connection.execute(sql);
     return rows;
   },
-  listarIDItem: async (id) => {
+  listarIDItem: async id => {
     const sql = "SELECT * FROM itens_pedidos WHERE idItensPedidos = ?;";
     const values = [id];
     const [rows] = await connection.execute(sql, values);
@@ -150,7 +153,7 @@ const pedidoRepositories = {
       conn.release();
     }
   },
-  deletarItem: async (itemId) => {
+  deletarItem: async itemId => {
     const conn = await connection.getConnection();
 
     try {
