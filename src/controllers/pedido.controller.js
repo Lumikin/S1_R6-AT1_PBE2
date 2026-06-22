@@ -192,7 +192,7 @@ const pedidoController = {
   },
   alterarItem: async (req, res) => {
     try {
-      const itemId = Number(req.params.itemId ?? req.params.id);
+      const itemId = Number(req.params.id);
       const { idProduto, quantidade, valorItem } = req.body;
 
       // Cria uma instância de item de pedido atualizada antes de salvar

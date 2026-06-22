@@ -66,7 +66,7 @@ collection:
         meta:
           id: req_86fcd64cf2694b069ef44b18eddc027e
           created: 1781541132451
-          modified: 1781541262714
+          modified: 1782127679166
           isPrivate: false
           description: ""
           sortKey: -1781077339709.5
@@ -170,7 +170,7 @@ collection:
         meta:
           id: req_252e9775716e4d62bcea6a95b5c4d519
           created: 1781541389006
-          modified: 1781541986321
+          modified: 1781549506093
           isPrivate: false
           description: ""
           sortKey: -1780961429190.625
@@ -193,7 +193,7 @@ collection:
         meta:
           id: req_5c40f7a8361b42579c7d3f27ebe424ff
           created: 1781541389006
-          modified: 1781547443600
+          modified: 1781549521724
           isPrivate: false
           description: ""
           sortKey: -1781077339709.5
@@ -230,7 +230,7 @@ collection:
               value: "{% faker 'randomFoodImage' %}"
               description: ""
               disabled: false
-              fileName: C:\Users\49211409870\Downloads\promeia (zenless zone zero.jpg
+              fileName: C:\Users\49211409870\Downloads\17ProMaxPreto.jpg
               type: file
         headers:
           - name: Content-Type
@@ -388,7 +388,7 @@ collection:
         meta:
           id: req_7d28c4e323bb46e38524894aeeb648ff
           created: 1781541999954
-          modified: 1781544999174
+          modified: 1781549532479
           isPrivate: false
           description: ""
           sortKey: -1781077339709.5
@@ -399,12 +399,12 @@ collection:
             {
             	"itens": [
             		{
-            			"idProduto": 1,
+            			"idProduto": 3,
             			"quantidade": 13123,
             			"valorItem": {% faker 'randomPrice' %}
             		},
             		{
-            			"idProduto": 2,
+            			"idProduto": 4,
             			"quantidade": 13123,
             			"valorItem": {% faker 'randomPrice' %}
             		}
@@ -425,12 +425,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: "{{server}}:{{port}}/pedidos/1"
+      - url: "{{server}}:{{port}}/pedidos/2"
         name: Deletar
         meta:
           id: req_9aacc73e5033491789f09546e2066311
           created: 1781541999954
-          modified: 1781542811474
+          modified: 1781549500330
           isPrivate: false
           description: ""
           sortKey: -1780961429190.625
@@ -510,12 +510,12 @@ collection:
       sortKey: -1780622466921.75
       description: ""
     children:
-      - url: "{{server}}:{{port}}/pedidos/itens/5"
+      - url: "{{server}}:{{port}}/pedidos/itens/6"
         name: listar ID
         meta:
           id: req_457aadc2882f4fdf8173a62e8481ca3e
           created: 1781542854245
-          modified: 1781544038827
+          modified: 1781550664347
           isPrivate: false
           description: ""
           sortKey: -1781231887068
@@ -567,7 +567,7 @@ environments:
   meta:
     id: env_56bd4409e583f33f13d93b2b658110415399db32
     created: 1781540791200
-    modified: 1781541082022
+    modified: 1782124846204
     isPrivate: false
   data:
     server: https://market-7tm6.onrender.com
